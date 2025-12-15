@@ -10,655 +10,1101 @@ table { border-collapse: collapse; width: 100%; }
 th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
 audio { width: 220px; }
 th { background: #f0f0f0; }
+
 .desc { font-size: 12px; color: #555; }
+.tag { font-size: 11px; color: #555; }
+
+.emotion { background: #fff4f4; }
+.emotion.q1 { border-left: 6px solid #ff9999; }
+.emotion.q2 { border-left: 6px solid #ff6666; }
+.emotion.q3 { border-left: 6px solid #9999ff; }
+.emotion.q4 { border-left: 6px solid #99cc99; }
+
+.technique { background: #f4f8ff; }
+.tempo { border-left: 6px solid #ffa500; }
+.articulation { border-left: 6px solid #9370db; }
+.dynamics { border-left: 6px solid #1e90ff; }
+.weight { border-left: 6px solid #708090; }
 </style>
-</head><body>
-<h1>🎧 モデルのcontrastive lossを変化させた時の生成結果</h1>
+</head>
+<body>
+
+<h1>Data Augmentation & SupCon</h1>
+
 <table>
 <tr>
-  <th>Emotion</th>
+  <th>Label</th>
 
-      <th>
-        <div>20251204_111413</div>
-        <div class="desc">1対1対応 positive</div>
-      </th>
+    <th>
+      <div>20251204_111413</div>
+      <div class="desc">1対1対応 positive</div>
+    </th>
     
-      <th>
-        <div>20251210_141342</div>
-        <div class="desc">同じ演奏表情同士は positive</div>
-      </th>
+    <th>
+      <div>20251210_141342</div>
+      <div class="desc">同じ演奏表情同士は positive</div>
+    </th>
     
-      <th>
-        <div>20251210_142257</div>
-        <div class="desc">同じテキスト同士は positive</div>
-      </th>
+    <th>
+      <div>20251210_142257</div>
+      <div class="desc">同じテキスト同士は positive</div>
+    </th>
     
-      <th>
-        <div>20251210_142937</div>
-        <div class="desc">同じ演奏表情 or テキスト同士は positive</div>
-      </th>
-    </tr><tr><td><b>Sad</b></td>
+    <th>
+      <div>20251210_142937</div>
+      <div class="desc">同じ演奏表情 or テキスト同士は positive</div>
+    </th>
+    </tr>
+    <tr>
+      <td class="emotion q1">
+        <b>Aroused</b><br>
+        <span class="tag">Emotion / Q1</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_Sad_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Aroused_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Sad_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Aroused_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Sad_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Aroused_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Sad_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Aroused_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>悲しい</b></td>
+        </tr>
+    <tr>
+      <td class="emotion q1">
+        <b>Excited</b><br>
+        <span class="tag">Emotion / Q1</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_悲しい_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Excited_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_悲しい_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Excited_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_悲しい_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Excited_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_悲しい_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Excited_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>Anger</b></td>
+        </tr>
+    <tr>
+      <td class="emotion q1">
+        <b>Happy</b><br>
+        <span class="tag">Emotion / Q1</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_Anger_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Happy_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Anger_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Happy_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Anger_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Happy_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Anger_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Happy_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>怒った</b></td>
+        </tr>
+    <tr>
+      <td class="emotion q2">
+        <b>Tense</b><br>
+        <span class="tag">Emotion / Q2</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_怒った_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Tense_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_怒った_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Tense_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_怒った_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Tense_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_怒った_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Tense_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>Relax</b></td>
+        </tr>
+    <tr>
+      <td class="emotion q2">
+        <b>Angry</b><br>
+        <span class="tag">Emotion / Q2</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_Relax_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Angry_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Relax_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Angry_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Relax_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Angry_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Relax_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Angry_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>リラックスした</b></td>
+        </tr>
+    <tr>
+      <td class="emotion q2">
+        <b>Annoyed</b><br>
+        <span class="tag">Emotion / Q2</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_リラックスした_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Annoyed_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_リラックスした_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Annoyed_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_リラックスした_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Annoyed_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_リラックスした_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Annoyed_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>Enjoy</b></td>
+        </tr>
+    <tr>
+      <td class="emotion q2">
+        <b>Distressed</b><br>
+        <span class="tag">Emotion / Q2</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_Enjoy_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Distressed_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Enjoy_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Distressed_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Enjoy_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Distressed_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Enjoy_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Distressed_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>楽しい</b></td>
+        </tr>
+    <tr>
+      <td class="emotion q2">
+        <b>Frustrated</b><br>
+        <span class="tag">Emotion / Q2</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_楽しい_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Frustrated_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_楽しい_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Frustrated_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_楽しい_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Frustrated_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_楽しい_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Frustrated_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>Passionate</b></td>
+        </tr>
+    <tr>
+      <td class="emotion q3">
+        <b>Miserable</b><br>
+        <span class="tag">Emotion / Q3</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_Passionate_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Miserable_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Passionate_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Miserable_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Passionate_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Miserable_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Passionate_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Miserable_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>情熱的な</b></td>
+        </tr>
+    <tr>
+      <td class="emotion q3">
+        <b>Sad</b><br>
+        <span class="tag">Emotion / Q3</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_情熱的な_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Sad_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_情熱的な_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Sad_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_情熱的な_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Sad_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_情熱的な_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Sad_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>Expressive</b></td>
+        </tr>
+    <tr>
+      <td class="emotion q3">
+        <b>Depressed</b><br>
+        <span class="tag">Emotion / Q3</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_Expressive_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Depressed_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Expressive_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Depressed_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Expressive_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Depressed_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Expressive_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Depressed_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>表現豊かな</b></td>
+        </tr>
+    <tr>
+      <td class="emotion q3">
+        <b>Droopy</b><br>
+        <span class="tag">Emotion / Q3</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_表現豊かな_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Droopy_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_表現豊かな_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Droopy_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_表現豊かな_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Droopy_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_表現豊かな_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Droopy_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>Lively</b></td>
+        </tr>
+    <tr>
+      <td class="emotion q4">
+        <b>Pleased</b><br>
+        <span class="tag">Emotion / Q4</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_Lively_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Pleased_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Lively_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Pleased_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Lively_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Pleased_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Lively_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Pleased_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>生き生きとした</b></td>
+        </tr>
+    <tr>
+      <td class="emotion q4">
+        <b>Content</b><br>
+        <span class="tag">Emotion / Q4</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_生き生きとした_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Content_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_生き生きとした_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Content_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_生き生きとした_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Content_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_生き生きとした_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Content_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>Robotic</b></td>
+        </tr>
+    <tr>
+      <td class="emotion q4">
+        <b>Satisfied</b><br>
+        <span class="tag">Emotion / Q4</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_Robotic_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Satisfied_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Robotic_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Satisfied_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Robotic_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Satisfied_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Robotic_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Satisfied_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>ロボットのような</b></td>
+        </tr>
+    <tr>
+      <td class="emotion q4">
+        <b>Relaxed</b><br>
+        <span class="tag">Emotion / Q4</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_ロボットのような_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Relaxed_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_ロボットのような_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Relaxed_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_ロボットのような_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Relaxed_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_ロボットのような_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Relaxed_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>Mechanic</b></td>
+        </tr>
+    <tr>
+      <td class="emotion q4">
+        <b>Sleepy</b><br>
+        <span class="tag">Emotion / Q4</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_Mechanic_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Sleepy_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Mechanic_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Sleepy_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Mechanic_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Sleepy_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Mechanic_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_Sleepy_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>機械的な</b></td>
+        </tr>
+    <tr>
+      <td class="technique tempo">
+        <b>slow</b><br>
+        <span class="tag">Technique / tempo</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_機械的な_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_slow_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_機械的な_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_slow_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_機械的な_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_slow_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_機械的な_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_slow_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>Fast</b></td>
+        </tr>
+    <tr>
+      <td class="technique tempo">
+        <b>fast</b><br>
+        <span class="tag">Technique / tempo</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_Fast_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_fast_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Fast_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_fast_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Fast_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_fast_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Fast_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_fast_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>速い</b></td>
+        </tr>
+    <tr>
+      <td class="technique tempo">
+        <b>moderate</b><br>
+        <span class="tag">Technique / tempo</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_速い_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_moderate_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_速い_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_moderate_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_速い_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_moderate_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_速い_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_moderate_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>Slow</b></td>
+        </tr>
+    <tr>
+      <td class="technique tempo">
+        <b>accelerating</b><br>
+        <span class="tag">Technique / tempo</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_Slow_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_accelerating_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Slow_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_accelerating_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Slow_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_accelerating_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Slow_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_accelerating_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>遅い</b></td>
+        </tr>
+    <tr>
+      <td class="technique tempo">
+        <b>slowing</b><br>
+        <span class="tag">Technique / tempo</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_遅い_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_slowing_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_遅い_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_slowing_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_遅い_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_slowing_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_遅い_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_slowing_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>Staccato</b></td>
+        </tr>
+    <tr>
+      <td class="technique tempo">
+        <b>steady</b><br>
+        <span class="tag">Technique / tempo</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_Staccato_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_steady_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Staccato_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_steady_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Staccato_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_steady_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Staccato_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_steady_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>スタッカート</b></td>
+        </tr>
+    <tr>
+      <td class="technique tempo">
+        <b>rushed</b><br>
+        <span class="tag">Technique / tempo</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_スタッカート_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_rushed_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_スタッカート_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_rushed_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_スタッカート_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_rushed_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_スタッカート_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_rushed_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>Legato</b></td>
+        </tr>
+    <tr>
+      <td class="technique tempo">
+        <b>rubato</b><br>
+        <span class="tag">Technique / tempo</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_Legato_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_rubato_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Legato_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_rubato_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Legato_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_rubato_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_Legato_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_rubato_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr><tr><td><b>レガート</b></td>
+        </tr>
+    <tr>
+      <td class="technique articulation">
+        <b>staccato</b><br>
+        <span class="tag">Technique / articulation</span>
+      </td>
+    
         <td>
-            <audio controls>
-                <source src="mozart_レガート_20251204_111413.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_staccato_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_レガート_20251210_141342.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_staccato_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_レガート_20251210_142257.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_staccato_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
         </td>
         
         <td>
-            <audio controls>
-                <source src="mozart_レガート_20251210_142937.mp3" type="audio/mpeg">
-            </audio>
+          <audio controls>
+            <source src="mozart_staccato_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
         </td>
-        </tr></table></body></html>
+        </tr>
+    <tr>
+      <td class="technique articulation">
+        <b>legato</b><br>
+        <span class="tag">Technique / articulation</span>
+      </td>
+    
+        <td>
+          <audio controls>
+            <source src="mozart_legato_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_legato_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_legato_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_legato_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        </tr>
+    <tr>
+      <td class="technique articulation">
+        <b>tenuto</b><br>
+        <span class="tag">Technique / articulation</span>
+      </td>
+    
+        <td>
+          <audio controls>
+            <source src="mozart_tenuto_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_tenuto_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_tenuto_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_tenuto_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        </tr>
+    <tr>
+      <td class="technique dynamics">
+        <b>soft</b><br>
+        <span class="tag">Technique / dynamics</span>
+      </td>
+    
+        <td>
+          <audio controls>
+            <source src="mozart_soft_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_soft_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_soft_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_soft_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        </tr>
+    <tr>
+      <td class="technique dynamics">
+        <b>loud</b><br>
+        <span class="tag">Technique / dynamics</span>
+      </td>
+    
+        <td>
+          <audio controls>
+            <source src="mozart_loud_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_loud_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_loud_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_loud_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        </tr>
+    <tr>
+      <td class="technique dynamics">
+        <b>medium</b><br>
+        <span class="tag">Technique / dynamics</span>
+      </td>
+    
+        <td>
+          <audio controls>
+            <source src="mozart_medium_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_medium_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_medium_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_medium_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        </tr>
+    <tr>
+      <td class="technique weight">
+        <b>light</b><br>
+        <span class="tag">Technique / weight</span>
+      </td>
+    
+        <td>
+          <audio controls>
+            <source src="mozart_light_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_light_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_light_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_light_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        </tr>
+    <tr>
+      <td class="technique weight">
+        <b>heavy</b><br>
+        <span class="tag">Technique / weight</span>
+      </td>
+    
+        <td>
+          <audio controls>
+            <source src="mozart_heavy_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_heavy_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_heavy_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_heavy_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        </tr>
+    <tr>
+      <td class="technique weight">
+        <b>dense</b><br>
+        <span class="tag">Technique / weight</span>
+      </td>
+    
+        <td>
+          <audio controls>
+            <source src="mozart_dense_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_dense_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_dense_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_dense_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        </tr>
+    <tr>
+      <td class="technique weight">
+        <b>sparse</b><br>
+        <span class="tag">Technique / weight</span>
+      </td>
+    
+        <td>
+          <audio controls>
+            <source src="mozart_sparse_20251204_111413.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_sparse_20251210_141342.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_sparse_20251210_142257.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        
+        <td>
+          <audio controls>
+            <source src="mozart_sparse_20251210_142937.mp3" type="audio/mpeg">
+          </audio>
+        </td>
+        </tr>
+</table>
+</body>
+</html>
